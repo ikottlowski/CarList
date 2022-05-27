@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTable } from '@angular/material/table';
 import { CarService } from './services/car.service';
 
 export interface ReadCar {
@@ -20,7 +21,7 @@ export interface WriteCar {
   styleUrls: ['./car-list.component.css'],
 })
 export class CarListComponent implements OnInit {
-  carList: ReadCar[] = [];
+  carData: ReadCar[] = [];
   displayedColumns: string[] = ['Id', 'Make', 'Model', 'Year'];
 
   newCar: WriteCar = {
@@ -28,6 +29,8 @@ export class CarListComponent implements OnInit {
     model: '',
     year: 0,
   };
+
+  postErrorMsg: string = '';
 
   constructor(private carService: CarService) {}
 
@@ -37,14 +40,20 @@ export class CarListComponent implements OnInit {
 
   fetchCars(): void {
     this.carService.getCars().subscribe((cars) => {
-      this.carList = cars;
+      this.carData = cars;
     });
   }
 
   addNewCar(): void {
-    this.carService.addCar(this.newCar).subscribe((car) => {
-      this.carList.push(car);
-      this.newCar = { make: '', model: '', year: 0 };
+    this.carService.addCar(this.newCar).subscribe({
+      next: (car) => {
+        this.carData.push(car);
+        this.newCar = { make: '', model: '', year: 0 };
+        this.postErrorMsg = '';
+      },
+      error: (res: any) => {
+        this.postErrorMsg = res.error;
+      },
     });
   }
 }

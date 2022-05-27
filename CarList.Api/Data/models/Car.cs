@@ -10,6 +10,5 @@ public class Car
     [Required]
     public string? Model { get; set; }
     [Required]
-    [Range(1888, 9999, ErrorMessage = "Please enter 4 digit car year.")]
     public int Year { get; set; }
 }

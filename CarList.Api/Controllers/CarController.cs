@@ -31,10 +31,21 @@ public class CarController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Car>> AddCar([FromBody] Car car)
     {
-        _context.Cars.Add(car);
-        await _context.SaveChangesAsync();
+        Car? doesExist = await _context.Cars
+                                .Where(c => c.Make.ToLower() == car.Make.ToLower() && 
+                                            c.Model.ToLower() == car.Model.ToLower() && 
+                                            c.Year == car.Year)
+                                .FirstOrDefaultAsync();
 
-        return Ok(car);
+        if(doesExist == null){
+            _context.Cars.Add(car);
+            await _context.SaveChangesAsync();
+
+            return Ok(car);
+        }
+        else {
+            return BadRequest("Car already exists");
+        }
     }
 
     // [HttpPut]
