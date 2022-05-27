@@ -16,8 +16,8 @@ public class CarListContext : DbContext
     {
         modelBuilder.Entity<Car>().ToTable("Car").HasData(
             new Car { CarId = 1, Make = "Benz", Model = "Motorwagen", Year = 1888 },
-            new Car { CarId = 1, Make = "Ford", Model = "Model A", Year = 1927 },
-            new Car { CarId = 2, Make = "Oldsmobile", Model = "6", Year = 1928 }
+            new Car { CarId = 2, Make = "Ford", Model = "Model A", Year = 1927 },
+            new Car { CarId = 3, Make = "Oldsmobile", Model = "6", Year = 1928 }
         );
     }
 }
