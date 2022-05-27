@@ -1,0 +1,18 @@
+.content {
+    margin: 3em
+}
+
+.card {
+    margin-bottom: 2em;
+}
+
+table {
+    width: 100%;
+}
+
+.car-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+}
