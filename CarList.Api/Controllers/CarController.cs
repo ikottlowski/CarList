@@ -34,7 +34,7 @@ public class CarController : ControllerBase
         _context.Cars.Add(car);
         await _context.SaveChangesAsync();
 
-        return Ok();
+        return Ok(car);
     }
 
     // [HttpPut]
